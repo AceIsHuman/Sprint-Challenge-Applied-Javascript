@@ -27,6 +27,7 @@ class Carousel {
     this.leftButton.classList.add('left-button');
     this.leftButton.innerText = '<';
     this.carousel.appendChild(this.leftButton);
+    this.leftButton.addEventListener('click', this.previous.bind(this));
 
     this.img1 = document.createElement('img');
     this.img1.src = './assets/carousel/mountains.jpeg';
@@ -43,8 +44,105 @@ class Carousel {
     this.rightButton.classList.add('right-button');
     this.rightButton.innerText = '>';
     this.carousel.appendChild(this.rightButton);
+    this.rightButton.addEventListener('click', this.next.bind(this));
 
     document.querySelector('.carousel-container').appendChild(this.carousel);
+
+    this.prevIndex = this.allImages.length - 1;
+    this.currIndex = 0;
+    this.nextIndex = 1;
+
+    this.prevImg = this.allImages[this.prevIndex];
+    this.currImg = this.allImages[this.currIndex];
+    this.nextImg = this.allImages[this.nextIndex];
+
+    this.allImages.forEach(img => img.classList.add('slide-hidden'));
+    this.displayImg(this.prevImg, 'slide-left');
+    this.displayImg(this.currImg, 'slide-middle');
+    this.displayImg(this.nextImg, 'slide-right');
+  }
+
+  increaseIdx(){
+    if(this.currIndex === this.allImages.length-1) {
+      this.prevIndex++;
+      this.currIndex = 0;
+      this.nextIndex++;
+    } else if(this.prevIndex === this.allImages.length-1) {
+      this.prevIndex = 0;
+      this.currIndex++;
+      this.nextIndex++;
+    } else if(this.nextIndex === this.allImages.length-1) {
+      this.prevIndex++;
+      this.currIndex++;
+      this.nextIndex = 0;
+    } else {
+      this.prevIndex++;
+      this.currIndex++;
+      this.nextIndex++;
+    }
+  }
+
+  decreaseIdx(){
+    if(this.currIndex === 0) {
+      this.prevIndex--;
+      this.currIndex = this.allImages.length - 1;
+      this.nextIndex--;
+    } else if(this.prevIndex === 0) {
+      this.prevIndex = this.allImages.length - 1;
+      this.currIndex--;
+      this.nextIndex--;
+    } else if(this.nextIndex === 0) {
+      this.prevIndex--;
+      this.currIndex--;
+      this.nextIndex = this.allImages.length - 1;
+    } else {
+      this.prevIndex--;
+      this.currIndex--;
+      this.nextIndex--;
+    }
+  }
+
+  getImages(){
+    this.prevImg = this.allImages[this.prevIndex];
+    this.currImg = this.allImages[this.currIndex];
+    this.nextImg = this.allImages[this.nextIndex];
+  }
+
+  displayImg(image, position){
+    image.classList.add(position);
+    image.classList.remove('slide-hidden');
+  }
+
+  hideAll() {
+    this.allImages.forEach(img => img.classList.add('slide-hidden'));
+  }
+
+  removeClasses(){
+    this.prevImg.classList.remove('slide-left');
+    this.currImg.classList.remove('slide-middle');
+    this.nextImg.classList.remove('slide-right');
+  }
+
+  next(){
+    this.hideAll();
+    this.removeClasses();
+    this.increaseIdx();
+    this.getImages();
+    this.displayImg(this.prevImg, 'slide-left');
+    this.displayImg(this.currImg, 'slide-middle');
+    this.displayImg(this.nextImg, 'slide-right');
+
+  }
+
+  previous(){
+    this.hideAll();
+    this.removeClasses();
+    this.decreaseIdx();
+    this.getImages();
+    this.displayImg(this.prevImg, 'slide-left');
+    this.displayImg(this.currImg, 'slide-middle');
+    this.displayImg(this.nextImg, 'slide-right');
+
   }
 }
 

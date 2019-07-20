@@ -36,6 +36,29 @@
   }
   img {
     .width-100();
+    position: absolute;
+    z-index: -1;
+    transition: 1s;
+  }
+  .slide-left {
+    left: -100%;
+    opacity: 0;
+    display: initial;
+  }
+
+  .slide-middle {
+    left: 0;
+    opacity: 1;
+    display: initial;
+  }
+
+  .slide-right {
+    left: 100%;
+    opacity: 0;
+    display: initial;
+  }
+
+  .slide-hidden {
     display: none;
   }
 }

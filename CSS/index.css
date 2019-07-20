@@ -301,5 +301,25 @@ body {
 }
 .carousel img {
   width: 100%;
+  position: absolute;
+  z-index: -1;
+  transition: 1s;
+}
+.carousel .slide-left {
+  left: -100%;
+  opacity: 0;
+  display: initial;
+}
+.carousel .slide-middle {
+  left: 0;
+  opacity: 1;
+  display: initial;
+}
+.carousel .slide-right {
+  left: 100%;
+  opacity: 0;
+  display: initial;
+}
+.carousel .slide-hidden {
   display: none;
 }
